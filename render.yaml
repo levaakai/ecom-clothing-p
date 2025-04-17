@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ecom-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key:  PORT
+        value: 5000
+      - key: JWTSECRET
+        value: AND12^%&^%&^KAJSDKJkabsdnbiueuasbkamnkaso98d783249uhsakjxa
+      - key: EMAILTOKI
+        value: SZ5YGFNVGN68R63WFH87I!!$vv^$wafd@$asq@vsfatgbESTUGFCHDGJfdbhg
+      
