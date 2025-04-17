@@ -1,0 +1,11 @@
+import Product from './Product.js';
+import ProductVariant from './ProductVariant.js';
+import Category from './Category.js';
+
+// Product belongs to Category
+Product.belongsTo(Category, { foreignKey: 'categoryId' });
+Category.hasMany(Product, { foreignKey: 'categoryId' });
+
+// Product has many Variants
+Product.hasMany(ProductVariant, { foreignKey: 'productId' });
+ProductVariant.belongsTo(Product, { foreignKey: 'productId' });

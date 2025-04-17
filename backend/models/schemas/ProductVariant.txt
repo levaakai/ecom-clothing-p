@@ -1,0 +1,24 @@
+// models/ProductVariant.js (Size/Color Combos)
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/db.js';
+
+const ProductVariant = sequelize.define('ProductVariant', {
+  size: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  color: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  stock: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
+});
+
+export default ProductVariant;
