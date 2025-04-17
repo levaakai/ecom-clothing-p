@@ -8,13 +8,19 @@ import OrderModel from '../models/Order.js';
 import OrderItemModel from '../models/OrderItem.js';
 
 // console.log(process.env.DB_NAME);
-const sequelize = new Sequelize('postgresql://ecom_clothing_user:u4l6HJLZUiQPYH8XFzMaHkgCFpN05Iku@dpg-d00fhqpr0fns73e7t81g-a.virginia-postgres.render.com/ecom_clothing')
+// const sequelize = new Sequelize('postgresql://ecom_clothing_user:u4l6HJLZUiQPYH8XFzMaHkgCFpN05Iku@dpg-d00fhqpr0fns73e7t81g-a.virginia-postgres.render.com/ecom_clothing')
 
-// const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-//   host: process.env.DB_HOST,
-//   dialect: 'postgres',
-//   port: process.env.DB_PORT || 5432 
-// });
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 5432,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,  
+      rejectUnauthorized: false  
+    }
+  }
+});
 
 
 // 💡 Initialize models with sequelize + DataTypes
