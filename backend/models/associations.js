@@ -1,8 +1,10 @@
-import User from './User.js';
-import Product from './Product.js';
-import Cart from './Cart.js';
-import Order from './Order.js';
-import OrderItem from './OrderItem.js';
+// import User from './User.js';
+// import Product from './Product.js';
+// import Cart from './Cart.js';
+// import Order from './Order.js';
+// import OrderItem from './OrderItem.js';
+
+import { User,Product,Cart,Order,OrderItem } from '../config/db.js';
 
 const applyAssociations = ( User, Product, Cart, Order, OrderItem) => {
   // User and Orders

@@ -5,13 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 // Models
-// import User from './models/User.js'
-// import Product from './models/Product.js';
-// import Cart from './models/Cart.js';
-// import Order from './models/Order.js';
-// import OrderItem from './models/OrderItem.js';
 import { User, Product, Cart, Order, OrderItem } from './config/db.js';
-
 
 
 // App Routes
@@ -38,10 +32,6 @@ const syncDatabase = async () => {
     console.log("Error establishing database connection!", error);
    }
 }
-
-// await User.sync({ force: true });  // Forces the creation of the table, drops it first if it already exists
-
-
 syncDatabase()
 
 const app = express()
