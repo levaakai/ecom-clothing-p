@@ -1,3 +1,4 @@
+//db.js
 import Sequelize from 'sequelize';
 import { applyAssociations } from '../models/associations.js';
 
@@ -7,19 +8,21 @@ import CartModel from '../models/Cart.js';
 import OrderModel from '../models/Order.js';
 import OrderItemModel from '../models/OrderItem.js';
 
-// console.log(process.env.DB_NAME);
-// const sequelize = new Sequelize('postgresql://ecom_clothing_user:u4l6HJLZUiQPYH8XFzMaHkgCFpN05Iku@dpg-d00fhqpr0fns73e7t81g-a.virginia-postgres.render.com/ecom_clothing')
+import dotenv from 'dotenv'
+dotenv.config()
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT || 5432,
+// postgres://user:pass@host:port/database;
+
+console.log('hgfhgfjhgjh ', process.env.DATABASE_URL)
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
+  protocol: 'postgres',
   dialectOptions: {
     ssl: {
-      require: true,  
-      rejectUnauthorized: false  
-    }
-  }
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 
