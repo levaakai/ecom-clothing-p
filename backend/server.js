@@ -57,9 +57,7 @@ app.use(cookieParser())
 // }))
 
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? 'https://chipper-gaufre-a0ffdc.netlify.app/'
-    : 'http://localhost:5173', // if using Vite locally
+  origin: 'https://chipper-gaufre-a0ffdc.netlify.app/',
   credentials: true
 }));
 
