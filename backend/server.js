@@ -50,10 +50,19 @@ const app = express()
 app.use(express.json())     // parse json
 app.use(express.urlencoded({extended: true}))     // handle url-encoding
 app.use(cookieParser())
+
+// app.use(cors({
+//   origin: process.env.FRONTEND_PROD_URL, 
+//   credentials: true,
+// }))
+
 app.use(cors({
-  origin: process.env.FRONTEND_PROD_URL, 
-  credentials: true,
-}))
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://chipper-gaufre-a0ffdc.netlify.app/'
+    : 'http://localhost:5173', // if using Vite locally
+  credentials: true
+}));
+
 
 
 app.use((req, res, next) => {
