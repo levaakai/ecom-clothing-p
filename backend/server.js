@@ -57,7 +57,7 @@ app.use(cookieParser())
 // }))
 
 app.use(cors({
-  origin: 'https://chipper-gaufre-a0ffdc.netlify.app/',
+  origin: 'https://chipper-gaufre-a0ffdc.netlify.app',
   credentials: true
 }));
 
