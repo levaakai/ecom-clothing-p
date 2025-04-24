@@ -51,7 +51,7 @@ app.use(express.json())     // parse json
 app.use(express.urlencoded({extended: true}))     // handle url-encoding
 app.use(cookieParser())
 app.use(cors({
-  origin: process.env.FRONTEND_URL, 
+  origin: process.env.FRONTEND_PROD_URL, 
   credentials: true,
 }))
 
