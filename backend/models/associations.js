@@ -1,12 +1,11 @@
-// import User from './User.js';
-// import Product from './Product.js';
-// import Cart from './Cart.js';
-// import Order from './Order.js';
-// import OrderItem from './OrderItem.js';
+import User from './User.js';
+import Product from './Product.js';
+import Cart from './Cart.js';
+import Order from './Order.js';
+import OrderItem from './OrderItem.js';
+import Payment from './Payment.js';
 
-import { User,Product,Cart,Order,OrderItem } from '../config/db.js';
-
-const applyAssociations = ( User, Product, Cart, Order, OrderItem) => {
+const applyAssociations = ( User, Product, Cart, Order, OrderItem, Payment) => {
   // User and Orders
   User.hasMany(Order, { foreignKey: 'userId' });
   Order.belongsTo(User, { foreignKey: 'userId' });
@@ -25,6 +24,15 @@ const applyAssociations = ( User, Product, Cart, Order, OrderItem) => {
 
   Product.hasMany(Cart, { foreignKey: 'productId' });
   Cart.belongsTo(Product, { foreignKey: 'productId' });
+  
+  // Payment relationshipss
+ // One Order has one Payment
+Order.hasOne(Payment, { foreignKey: 'orderId' });
+Payment.belongsTo(Order, { foreignKey: 'orderId' });
+
+// One User can have many Payments
+User.hasMany(Payment, { foreignKey: 'userId' });
+Payment.belongsTo(User, { foreignKey: 'userId' });
 
 };
 

@@ -29,6 +29,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -43,5 +47,3 @@ export default (sequelize, DataTypes) => {
 return User;
 };
 
-// export default User;
-// export default UserModel;

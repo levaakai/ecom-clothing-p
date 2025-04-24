@@ -78,6 +78,7 @@ export const updateUserProfile = async (req, res) => {
         lastName = lastName ?? userData.lastName;
         email = email ?? userData.email;
         telephone = telephone ?? userData.telephone;
+        address = address ?? userData.address;
         isAdmin = isAdmin ?? userData.isAdmin
 
 
@@ -90,6 +91,9 @@ export const updateUserProfile = async (req, res) => {
         if (telephone.length !== 10) {
             errors.push("Telephone number must be 10 digits");
         }
+        if (address.length < 2) {
+            errors.push("Provide a valid address");
+        }
 
         if (errors.length > 0) {
             return res.status(400).json({ errors });
@@ -100,6 +104,7 @@ export const updateUserProfile = async (req, res) => {
         lastName,
         email,
         telephone,
+        address,
         isAdmin
        }, {
         where: {

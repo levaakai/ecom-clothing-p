@@ -8,11 +8,8 @@
  */
 
 import { User, Product, Cart, Order, OrderItem } from '../config/db.js';
-import { checkoutConfirmationMail } from '../config/mailer.js';
-
- import { sendMailjetEmail } from '../config/mailer.js';
-
- import { requestUserToken } from "../utils/utils.js"
+import { checkoutConfirmationMail } from '../utils/mailer.js';
+import { requestUserToken } from "../utils/utils.js"
 
  export const placeOrder = async (req, res) => {
     try {
@@ -64,6 +61,7 @@ import { checkoutConfirmationMail } from '../config/mailer.js';
         // Create OrderItem records for each cart item: So we know: this order contains Product X (qty 2, price $10)
         // OrderItem takes orderId, productId, quantity, priceAtTime
         // Create OrderItem records for each cart item
+
         for (const item of orderItemsData) {
             await OrderItem.create({
                 orderId: newOrder.id,
@@ -72,21 +70,19 @@ import { checkoutConfirmationMail } from '../config/mailer.js';
                 priceAtTime: item.priceAtTime
             });
         }
-
         // Add total amount to the Order, or send a confirmation email, etc. - Optiona
-        await checkoutConfirmationMail("levaakai@gmail.com", newOrder.id, totalAmount)
+        const userID = userid
+        const {email} = await User.findOne({ where:  { id:userid }})
+
+        // mail Order confirmation to user
+        await checkoutConfirmationMail(email, newOrder.id, totalAmount)
         
-        await sendMailjetEmail(
-            "levaakai@gmail.com",
-            "Your Ecom Clothing Order Confirmation",
-            "Thank you for shopping with us!",
-            "<h3>Thanks for your order!</h3><p>We'll update you when it ships.</p>"
-          );
-          
+        // remove items from cart after sending / confirming mail
         await Cart.destroy({ where: { userid }})
         
+        // return res.status(200).json({ message: "Checkout", email})
         return res.status(200).json({ message: "Checkout", totalAmount, newOrder})
     } catch (error) {
-        return res.status(500).json({error: "Something went wrong.", error, })
+        return res.status(500).json({error: "Something went wrong.", error })
     }
  }

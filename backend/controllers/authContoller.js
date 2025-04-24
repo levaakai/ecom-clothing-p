@@ -2,18 +2,18 @@ import bcrypt from 'bcrypt'
 // import User from '../models/User.js'
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer'
-import { mail } from '../config/mailer.js';
+import { mail } from '../utils/mailer.js';
 import { where } from 'sequelize';
 import { User } from '../config/db.js';
 
 
 
 export const registerUser = async (req, res) => {
-    const { firstName, lastName, email, telephone, password } = req.body;
+    const { firstName, lastName, email, telephone, address, password } = req.body;
     let errors = [];
 
     // Validation checks
-    if (!firstName || !lastName || !email || !telephone || !password) {
+    if (!firstName || !lastName || !email || !telephone || !password, !address) {
         errors.push("All fields must be provided");
     }
     
@@ -26,6 +26,9 @@ export const registerUser = async (req, res) => {
     if (telephone.length !== 10) {
         errors.push("Telephone number must be 10 digits");
     }
+    if (!address.length) {
+      errors.push("Address must be provided");
+  }
     if (password.length < 8) {
         errors.push("Password must be at least 8 characters");
     }
@@ -41,7 +44,7 @@ export const registerUser = async (req, res) => {
 
     // Create user
     try {
-        const user = await User.create({ firstName, lastName, email, telephone, password: hashedPassword });
+        const user = await User.create({ firstName, lastName, email, telephone,address, password: hashedPassword });
 
         //  storing cookie
             const token = jwt.sign(

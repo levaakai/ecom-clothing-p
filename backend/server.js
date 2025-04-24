@@ -5,7 +5,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 // Models
-import { User, Product, Cart, Order, OrderItem } from './config/db.js';
+// import User from './models/User.js'
+// import Product from './models/Product.js';
+// import Cart from './models/Cart.js';
+// import Order from './models/Order.js';
+// import OrderItem from './models/OrderItem.js';
+import { User, Product, Cart, Order, OrderItem, Payment} from './config/db.js';
 
 
 // App Routes
@@ -14,7 +19,7 @@ import { router as userRoutes } from './routes/userRoutes.js'
 import { router as productRoutes } from './routes/productRoutes.js'
 import { router as cartRoutes } from './routes/cartRoutes.js'
 import { router as orderRoutes } from './routes/orderRoutes.js'
-
+import { router as paymentRoutes } from './routes/paymentRoutes.js'
 
 dotenv.config()
 
@@ -22,16 +27,21 @@ dotenv.config()
 const syncDatabase = async () => {
    try {
     await connectDB()
-    await User.sync({ force: false })                     // create Users database
+    await User.sync({ alter: false })                     // create Users database
     await Product.sync({ force: false })                 // create Products db
     await Cart.sync()                                    // create Carts db
     await Order.sync()
     await OrderItem.sync()
+    await Payment.sync()
      console.log("Database succesfully synced!");
    } catch (error) {
     console.log("Error establishing database connection!", error);
    }
 }
+
+// await User.sync({ force: true });  // Forces the creation of the table, drops it first if it already exists
+
+
 syncDatabase()
 
 const app = express()
@@ -74,7 +84,9 @@ app.use('/api/cart', cartRoutes)
 // ORDER ROUTES
 app.use('/api/order', orderRoutes)
 
+//  PAYMENT ROUTES
+app.use('/api/payment', paymentRoutes )
 
-app.listen(process.env.PORT || 5000, ()=> {
-    console.log(`Server running on port ${process.env.PORT || 5000}`)
+app.listen(process.env.PORT, ()=> {
+    console.log(`Server running on port ${process.env.PORT}`)
 })
