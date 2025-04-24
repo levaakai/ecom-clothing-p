@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer'
 import { mail } from '../utils/mailer.js';
-import { where } from 'sequelize';
+// import { where } from 'sequelize';
 import { User } from '../config/db.js';
 
 
